@@ -97,9 +97,8 @@
 
             <div class="two">
                 <div class="timer">
-                    <div class="tm1"> Deals of the Day. | <h2>20:45:12 Left
-
-                        </h2>
+                    <div class="tm1"> 
+                        Deals of the Day | <h2 id="countdown">Loading...</h2>
                     </div>
                     <div class="tm2">View All Deals</div>
                 </div>
@@ -148,6 +147,31 @@
 
 
     </div>
+    <script>
+        let countdownDate = new Date().getTime() + 20 * 60 * 60 * 1000; // 20 hours from now
+
+        let x = setInterval(function() {
+
+            let now = new Date().getTime();
+
+            let distance = countdownDate - now;
+
+            let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            hours = hours < 10 ? "0" + hours : hours;
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            document.getElementById("countdown").innerHTML = hours + "h " + minutes + "m " + seconds + "s";
+
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("countdown").innerHTML = "EXPIRED";
+            }
+        }, 1000);
+    </script>
 </body>
 
 </html>
